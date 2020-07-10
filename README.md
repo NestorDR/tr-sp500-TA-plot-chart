@@ -1,13 +1,3 @@
-<style>
-img
-{
-    display:block; 
-    float:none; 
-    margin-left:auto;
-    margin-right:auto;
-}
-</style> 
-
 ## Description
 
 This example allows you to build technical analysis charts for indices, stocks, cryptocurrencies and more, from zero, with Python.
@@ -16,7 +6,7 @@ A [Japanese candlestick chart](https://en.wikipedia.org/wiki/Candlestick_chart) 
 
 This example implements perhaps the most common architecture pattern which is [n-tier architecture pattern](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html). And it has a lot of comments within its code.
 
-![Three-Tier architecture pattern](/assets/arquitecture.png "Three-Tier architecture pattern")
+![Three-Tier architecture pattern](/assets/arquitecture.svg "Three-Tier architecture pattern")
 
 ### Infrastructure
 
