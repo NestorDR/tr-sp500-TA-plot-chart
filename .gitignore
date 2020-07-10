@@ -4,6 +4,4 @@ __pycache__/
 # edition
 .idea/
 .vscode/
-
-# old snippets
 snippets_v0/

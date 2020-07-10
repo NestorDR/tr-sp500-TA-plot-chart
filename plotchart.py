@@ -2,13 +2,12 @@
 
 # Pandas: library for df analysis, which provides flexible df structures and efficient processing.
 import pandas as pd
-# Plotly: library to make interactive charts
+# Plotly: library to make interactive charts. Visit https://plotly.com
 from plotly import graph_objects as go, subplots
 
 import crosscutting
-from domain import techindicator
-from infrastructure import integration
-from constants import DJI, SPX, YAHOO
+from domain import quote, techindicator
+from crosscutting import constants as const
 
 
 def plot_chart(df: pd.DataFrame,
@@ -18,9 +17,9 @@ def plot_chart(df: pd.DataFrame,
     """
     Plot chart with Plotly.graph_objects
 
-    :param df: pandas.Dataframe with historical prices and tehcnical analysis indicators
+    :param df: pandas.Dataframe with historical prices and technical analysis indicators
     :param mat_window_: list [moving average type, time window] defining moving averages to plot
-                Example ma_type_window_ = [['EMA', 13], ['WMA', 55]]
+                Example mat_window_ = [['EMA', 13], ['WMA', 55]]
     :param tai_window_: list [technical indicator type, time window] defining technical analysis indicators to plot
                 Example tai_window_ = [['RSI', 14], ['MACD', (12, 26, 9)]]
     :param title_: chart title
@@ -42,7 +41,7 @@ def plot_chart(df: pd.DataFrame,
                                      high=df['High'],
                                      low=df['Low'],
                                      close=df['Close'],
-                                     name=chart_title_)
+                                     name=title_)
     fig.add_trace(go_candlestick_, row=subplot_row_, col=1)
 
     # Add graphic objects of the moving averages to plotly visualization
@@ -57,7 +56,7 @@ def plot_chart(df: pd.DataFrame,
                             name=f'{ma_type_.upper()}({time_window_})')
         fig.add_trace(go_ma_, row=subplot_row_, col=1)
 
-    # Add graphic objects of the technical analysis indicators  to plotly visualization
+    # Add graphic objects of the technical analysis indicators to plotly visualization
     for ti_ in tai_window_:
         # Extract params
         ti_type_, time_window_ = ti_
@@ -68,7 +67,7 @@ def plot_chart(df: pd.DataFrame,
             # Set subplot row to use
             subplot_row_ = subplot_row_ + 1
 
-            # Add graphic object of the technical analysis indicator  to plotly visualization
+            # Add graphic object of the technical analysis indicator to plotly visualization
             fastperiod_, slowperiod_, signalperiod_ = time_window_
             go_ti_ = go.Scatter(x=df.index,
                                 y=df[column_name_],
@@ -97,7 +96,7 @@ def plot_chart(df: pd.DataFrame,
             # Set subplot row to use
             subplot_row_ = subplot_row_ + 1
 
-            # Add graphic object of the technical analysis indicator  to plotly visualization
+            # Add graphic object of the technical analysis indicator to plotly visualization
             go_ti_ = go.Scatter(x=df.index,
                                 y=df[column_name_],
                                 line=dict(color='rgba(51, 02, 102, 0.7)', width=1),
@@ -118,7 +117,7 @@ def plot_chart(df: pd.DataFrame,
             # Set subplot row to use
             subplot_row_ = subplot_row_ + 1
 
-            # Add graphic object of the technical analysis indicator  to plotly visualization
+            # Add graphic object of the technical analysis indicator to plotly visualization
             go_ti_ = go.Scatter(x=df.index,
                                 y=df[column_name_],
                                 line=dict(color='rgba(255, 165, 0, 0.5)', width=1),
@@ -157,17 +156,17 @@ def plot_chart(df: pd.DataFrame,
 if __name__ == '__main__':
 
     # Initialize params.
-    symbol_ = SPX
+    time_frame_ = const.DAILY
+    symbol_ = const.SPX
     days_for_downloading_ = 600
     verbose_ = 2
 
-    # Initialiaze client for download historical prices
-    web = integration.WebClient(YAHOO)
-
     # Gets historical prices
-    df_data = web.get_daily_data(symbol_, days_for_downloading_)
+    quote = quote.Quote(time_frame_)
+    df_data = quote.get_prices(symbol_, days_for_downloading_)
+
     # Release resources
-    del web
+    del quote
 
     # Set list [moving average type, time window] for define moving averages to calculate
     mat_window_params_ = [['EMA', 34], ['SMA', 200]]
@@ -189,9 +188,9 @@ if __name__ == '__main__':
     # Filter number of bars to plot
     number_bars_ = 120
     # Set chart title
-    if symbol_ == SPX:
+    if symbol_ == const.SPX:
         chart_title_ = 'S&P 500'
-    elif symbol_ == DJI:
+    elif symbol_ == const.DJI:
         chart_title_ = 'Dow Jones Industrial Average'
     else:
         chart_title_ = symbol_

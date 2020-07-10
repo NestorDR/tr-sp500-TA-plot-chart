@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Logging: module for tracking events that happen when some software runs.
 import logging
 # Pandas: library for df analysis, which provides flexible df structures and efficient processing.
