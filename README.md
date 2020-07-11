@@ -84,7 +84,7 @@ $ python --version
 Python 3.7.1  
 $ pip install -r requirements.txt
 numpy==1.19
-pandas==0.24.2
+pandas==0.25.3
 pandas-datareader==0.8.1
 plotly==4.8.2
 TA-Lib==0.4.17
