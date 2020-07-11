@@ -1,6 +1,8 @@
 ## Description
 
-This example allows you to build technical analysis charts for indices, stocks, cryptocurrencies and more, from zero, with Python.
+This example allows you to build technical analysis charts for indices, stocks, cryptocurrencies and more, from zero, with Python. 
+
+Sometimes, on web platforms like [TradingView](https://www.tradingview.com/chart/), we cannot find the instruments we would like to see graphed, or a technical indicator we want to test. And we must resort to alternative solutions, this is one.
 
 A [Japanese candlestick chart](https://en.wikipedia.org/wiki/Candlestick_chart) is versatile style of financial chart used to describe price movements. If we add occidental analysis techniques, and even more, the forescast of machine learning models, we could have a solid tool to help us in the market surfing.
 
@@ -22,7 +24,7 @@ df_prices = web.DataReader(symbol_, self.data_source_, start_, end_)
 
 ### Domain
 
-The domain layer, also known as the business logic level, manages how prices are obtained and allows us to add the desired technical analysis indicators. To do it, uses [TA-lib](https://ta-lib.org), which is a technical analysis library for financial market data sets, expressed as time series.
+The domain layer, also known as the business logic level, manages how prices are obtained and allows us to add the desired technical analysis indicators. To do it, uses [TA-Lib](https://ta-lib.org), which is a technical analysis library for financial market data sets, expressed as time series.
 
 If you have problems to install TA-Lib, please visit [How to install TA-Lib in Python](https://blog.quantinsti.com/install-ta-lib-python/#windows).
 
@@ -37,6 +39,20 @@ df[column_name_] = func.EMA(df['Close'], time_window_)
 df[column_name_] = func.RSI(df['Close'], time_window_)
 ````
 
+But also this example, implements a simple way to add technical indicators and oscillators, listing them with their calculation parameter, as follows:
+
+````python
+# Set list [moving average type, time window] for define moving averages to calculate
+mat_window_params_ = [['EMA', 34], ['SMA', 200]]
+# Add moving averages to the DataFrame of historical prices
+techindicator.add_moving_average(df_data, mat_window_params_)
+
+# Set list [technical indicator type, time window] for define technical analysis indicators to calculate
+tai_window_params_ = [['RSI', 14], ['MACD', (12, 26, 9)]]
+# Add tecnical analysis indicators to the DataFrame of historical prices
+techindicator.add_tech_indicator(df_data, tai_window_params_)
+````
+  
 ### Presentation
 
 The UI layer or presentation tier is the user interface. It does not know or worry about how to get financial data or technical indicators; it only needs to display that information on a screen in particular format. To do it, it uses [Plotly](https://plotly.com/python/candlestick-charts/), which is a advanced UI layer for ML and data science models, allowing him to build interactive candlestick charts in Python.

@@ -162,7 +162,7 @@ if __name__ == '__main__':
     verbose_ = 2
 
     # Gets historical prices
-    quote = quote.Quote(time_frame_)
+    quote = quote.Service(time_frame_)
     df_data = quote.get_prices(symbol_, days_for_downloading_)
 
     # Release resources

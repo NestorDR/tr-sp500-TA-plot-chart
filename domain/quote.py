@@ -9,7 +9,7 @@ from crosscutting import constants as const
 from infrastructure import integration
 
 
-class Quote(object):
+class Service(object):
     """
     Domain services for the entity Quotes for investment instruments
     """
@@ -108,7 +108,7 @@ def main():
     symbol_ = const.SPX
 
     # Get historical prices
-    df_prices = Quote(time_frame_).get_prices(symbol_)
+    df_prices = Service(time_frame_).get_prices(symbol_)
 
     # Display first and last x records in console
     x = 10
