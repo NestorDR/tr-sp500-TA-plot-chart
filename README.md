@@ -4,7 +4,7 @@ This example allows you to build technical analysis charts for indices, stocks, 
 
 Sometimes, on web platforms like [TradingView](https://www.tradingview.com/chart/), we cannot find the instruments we would like to see graphed, or a technical indicator we want to test. And we must resort to alternative solutions, this is one.
 
-A [Japanese candlestick chart](https://en.wikipedia.org/wiki/Candlestick_chart) is versatile style of financial chart used to describe price movements. If we add occidental analysis techniques, and even more, the forescast of machine learning models, we could have a solid tool to help us in the market surfing.
+A [Japanese candlestick chart](https://en.wikipedia.org/wiki/Candlestick_chart) is friendly style of financial chart used to describe price evolution. If we add occidental analysis techniques, and even more, the forescast of machine learning models, we could have a solid tool to help us in the market surfing.
 
 This example implements perhaps the most common architecture pattern which is [n-tier architecture pattern](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html). And it has a lot of comments within its code.
 
