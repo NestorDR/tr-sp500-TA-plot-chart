@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# Datetime: this module supplies classes for manipulating dates and times
+import datetime as dt
 # Pandas: library for df analysis, which provides flexible df structures and efficient processing.
 import pandas as pd
 # Plotly: library to make interactive charts. Visit https://plotly.com
@@ -127,7 +129,15 @@ def plot_chart(df: pd.DataFrame,
         if subplot_row_ > 3:
             break
 
+    # Update graph context
+    annotations_ = [
+        dict(x=1, y=1, showarrow=False,
+             text=dt.datetime.now().strftime(f'{title_}   %d/%m/%Y %H:%M'),
+             xref='paper', yref='paper')
+    ]
+
     fig.update_layout(title_text=title_,
+                      annotations=annotations_,
                       margin=dict(t=40, b=5, l=5, r=5),
                       paper_bgcolor="LightSteelBlue",
                       xaxis_rangeslider_visible=False)
@@ -137,8 +147,8 @@ def plot_chart(df: pd.DataFrame,
                      linecolor='black',
                      mirror=True,
                      rangebreaks=[
-                         dict(bounds=['sat', 'mon']),                                   # hide weekends
-                         dict(values=['2020-01-01', '2020-04-10', '2020-05-25'])])      # hide holydays
+                     dict(bounds=['sat', 'mon']),                                               # hide weekends
+                     dict(values=['2020-01-01', '2020-04-10', '2020-05-25', '2020-07-03'])])    # hide holydays
     fig.update_yaxes(automargin=True,
                      showline=True,
                      linewidth=1,
@@ -147,6 +157,10 @@ def plot_chart(df: pd.DataFrame,
 
     # Display chart
     fig.show()
+
+    # Save chart
+    html_filename_ = f'{title_}.html'
+    fig.write_html(html_filename_)
 
 
 # Use of __name__ & __main__
@@ -189,9 +203,9 @@ if __name__ == '__main__':
     number_bars_ = 120
     # Set chart title
     if symbol_ == const.SPX:
-        chart_title_ = 'S&P 500'
+        chart_title_ = 'SP 500'
     elif symbol_ == const.DJI:
-        chart_title_ = 'Dow Jones Industrial Average'
+        chart_title_ = 'DJ Industrial Average'
     else:
         chart_title_ = symbol_
 
