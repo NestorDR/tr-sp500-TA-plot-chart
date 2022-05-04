@@ -1,3 +1,5 @@
+# TradingRex SP500 Plotter
+
 ## Description
 
 This example allows you to build technical analysis charts for indices, stocks, cryptocurrencies and more, from zero, with Python. 
